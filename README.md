@@ -15,6 +15,7 @@
 * Understanding State
 * Loading data into state onClick
 * Displaying state with JSX
+* Lifecycle hooks
 
 ## What are Components?
 
@@ -51,16 +52,21 @@ export class firstComponent extends React.Component {
 ```
 
 3. Stateless functional Components
-A stateless functional component is just a simple function that returns a react element
+   A stateless functional component is just a simple function that returns a react element.
+   So whenever you have a component that only does one thing (only need the method render),
+   it doenst make sence to use a full react component. E.g a Header
 
 ```shell
-  const MyComponent = () => {
+  const MyHeaderComponent = (props) => {
     return (
-      <div>
-        <h1>My Component</h1>
-      </div>
+      <header>
+        <h1>My header component</h1>
+        <h2>{props.tagline}</h2>
+      </header>
     );
   }
+
+  export default MyHeaderComponent;
 ```
 
 ## Passing dynamic data via Props
@@ -86,14 +92,17 @@ class App extends React.Component {
 
 export default App;
 ```
+
 >Example 2.
+
+``` shell
+
+_If we would console.log(this); it would give us the element,
+inside the element we will find an object called props, here all the props are stored
+of this particular element._
 
 class Header extends React.Component {
   render() {
-    >If we would console.log(this); it would give us the element,
-    inside the element we will find an object called props, here all the props are stored
-    of this particular element.
-
     return (
       <header className="top">
         <h1>Catch of the day</h1>
@@ -104,3 +113,35 @@ class Header extends React.Component {
 }
 
 export default Header;
+```
+
+## Routing with React router
+
+In our index.js we want to handle all the routing. The routing will be done via react-router.
+We will be needing browserrouter, match and miss from the react-router package.
+The way this works is we have Matches, if the Match is exactly pattern="/" we render a specific component.
+So based on the url, we can render out components with the exactly pattern. You can use this throughout your application, multiple levels deep.
+
+```shell
+import React from 'react';
+import { render } from 'react-dom';
+import { BrowserRouter, Match, Miss } from 'react-router';
+
+import './css/style.css';
+import App from './components/App';
+
+import StoreSelector from './components/StoreSelector';
+
+const Root = () => {
+  return (
+    <div>
+      <BrowserRouter>
+        <Match exactly pattern="/" component={StoreSelector} />
+        <Match pattern="/store/:storeId" component={App} />
+      </BrowserRouter>
+    </div>
+  );
+}
+
+render(<Root/>, document.querySelector('#main'));
+```
