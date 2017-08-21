@@ -174,3 +174,36 @@ export default StorePicker;
 ```
 
 ## Working with react events
+Events in React are exactly the same as events in regular Javascript. The only difference with React events is that they wrap them in this cross-browser wrapper called SyntheticEvent. This does some stuff under the hood, makes sure it works cross-browser for you.
+
+Notice that events are done inline. Also notice that render methods are bound to the actual class that you are in. So when you use this* its bound to the class that you are in.
+
+The following example gets us the value that is being typed in and change the url.
+Note* es6 classes do not have any commas after them.
+
+
+```shell
+import React from 'react';
+import { getNames } from '../helpers';
+
+class StorePicker extends React.Component {
+  goToStore(event) {
+    event.prefentDefault();
+
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.goToStore}>
+        <div>
+          <h2>Please enter your name</h2>
+          <input type="text" required placeholder="Your name" defaultValue={getNames()} />
+          <button type="submit">Check profile</button>
+        </div>
+      </form>
+    )
+  }
+}
+
+export default StorePicker;
+```
