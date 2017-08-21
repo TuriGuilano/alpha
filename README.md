@@ -22,6 +22,7 @@
 Try to stay away from actually touching the DOM as much as possible.
 React handles that part.
 
+React uses something called HTML5 Push state, this means React will actually change the urlbar but it actually doesn't refresh your browser.
 
 
 ## What are Components?
@@ -189,7 +190,7 @@ Notice that events are done inline. Also notice that render methods are bound to
 The following example gets us the value that is being typed in and change the url.
 In order to get the value from a actual input we use the ref={(input) => {this.storeInput = input }} attribute.
 
-After we also need to bind the ref because it doens't implicitly binds all of the methods to the actual component it self. We can do that by the cunstructor method and running super inside it. This makes sure it first runs the React component and allows us to sprinkle our extra stuff. And then super allows us to bind our own methods to the StorePicker component.
+After we also need to bind the ref because it doens't implicitly binds all of the methods to the actual component it self. We can do that by the cunstructor method and running super inside it. This makes sure it first runs the React component and allows us to sprinkle our extra stuff. And then super allows us to bind our own methods to the StorePicker component. NOTE** Its also possible that you bind the method inline, this is a bit more clearer.
 
 Note* es6 classes do not have any commas after them.
 
@@ -211,7 +212,7 @@ class StorePicker extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.goToStore}>
+      <form onSubmit={this.goToStore.bind(this)}>
         <div>
           <h2>Please enter your name</h2>
           <input type="text" required placeholder="Your name" defaultValue={getNames()} ref={(input) => {this.storeInput = input}} />
@@ -223,4 +224,48 @@ class StorePicker extends React.Component {
 }
 
 export default StorePicker;
+```
+
+## Changing pages in React
+
+With react-router 4 there are two main ways to actually change the page.
+
+1. You can render out a redirect Component.
+
+2. If you want a function that you can run to change the page you can use an imperative API.
+.transitionTo
+
+The way that we access our router is via context. When our BrowserRouter of the react-router library is our top level parent we can access this throughout our application. You can do so via the following setup.
+Note* You can inspect your component with the react devtools and see the props and context of the component
+The context object has a method called transitionTo. which allows us to call this method inside our goToStore method.
+
+So we need to serve the router from the parent with a thing called contextTypes.
+
+```shell
+class StorePicker = React.Component {
+  goToStore(event) {
+    event.preventDefault();
+    const storeId = this.storeInput.value;
+    this.context.router.transitionTo(`/store/${storeId}`);
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.goToStore.bind(this)}>
+        <div>
+          <h2>Please enter your name</h2>
+          <input type="text" required placeholder="Your name" defaultValue={getNames()} ref={(input) => {this.storeInput = input}} />
+          <button type="submit">Check profile</button>
+        </div>
+      </form>
+    )
+  }
+}
+
+Storepicker.contextTypes = {
+  router: React.PropTypes.object
+}
+
+export default StorePicker;
+
 ```
