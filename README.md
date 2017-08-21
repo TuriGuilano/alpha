@@ -148,4 +148,27 @@ const Root = () => {
 render(<Root/>, document.querySelector('#main'));
 ```
 
->Named exports 
+>Named exports
+
+When we have functions that are not big enough to be a module but just small helper functions we can create a helpers.js file. Here we can export each function that we create. By using these functions we can simply import the function name. E.g we want to display a randon default name in the input field, so we import a function that creates a random name.
+
+```shell
+import React from 'react';
+import { getNames } from '../helpers';
+
+class StorePicker extends React.Component {
+  render() {
+    return (
+      <form>
+        <div>
+          <h2>Please enter your name</h2>
+          <input type="text" required placeholder="Your name" defaultValue={getNames()} />
+          <button type="submit">Check profile</button>
+        </div>
+      </form>
+    )
+  }
+}
+
+export default StorePicker;
+```
