@@ -277,24 +277,76 @@ In React, we edit the data and React will change the HTML for us. So again, we n
 
 So let's say we have an Inventory which displays all of our products, for this example let's say Fish. And every time we add a new fish we want it to be placed into our state. Our state being a list of all of our fishes. We create a fish component as displayed below:
 
+In our root, in this example our App component we need to handle the state, this can also be done in Redux but since we dont use that in this example we will handle our state in our App.js
+
+In order to change update state our App should know what states we have.
+We do so by initializing the state in our App.js (see example 2.)
+
 ```shell
 import React from 'react';
 
 class AddFishForm extends React.Component {
   createFish(event) {
+    event.preventDefault();
 
+    const fish = {
+      name: this.name.value,
+      price: this.price.value,
+      status: this.status.value,
+      desc: this.desc.value,
+      image: this.image.value,
+    }
   }
 
   render() {
     return (
-      <form>
-        <input type="text" placeholder="Fish name" />
-        <input type="text" placeholder="Fish price" />
-        <select>
+      <form onSubmit={(e) => {this.createFish(e)}}>
+        <input ref={(input) => this.name = input} type="text" placeholder="Fish name" />
+        <input ref={(input) => this.price = input} type="text" placeholder="Fish price" />
+        <select ref={(input) => this.status = input}>
           <option value="available">Fresh</option>
+          <option value="available">Sold Out!</option>
         </select>
+        <textarea ref={(input) => this.desc = input} placeholder="Fish Desc"></textarea>
+        <input ref={(input) => this.image = input} type="text" placeholder="Fish Image" />
+        <button type="submit">+ Add Item</button>
       </form>
     )
   }
 }
+
+export default AddFishForm;
 ```  
+
+>Example 2
+
+```shell
+import React from 'react';
+import Header from './Header';
+import Order from './Order';
+import Inventory from './Inventory';
+
+class App extends React.Component {
+  constructor() {
+    [//]: # (run super so the Component initialises otherwise we can't call this.)
+    super();
+    [//]: # (this is also called getInitialState) 
+    this.state = {
+    fishes: {},
+    order: {}
+  };    
+}
+
+  render() {
+    return (
+      <div>
+        <Header tagline="Fresh Seafood Market" />
+        <Order />
+        <Inventory />
+      </div>
+    )
+  }
+}
+
+export default App;
+```
