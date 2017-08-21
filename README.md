@@ -368,3 +368,79 @@ export default App;
 
 
 We create a new fish in component 3. We can pass this new fish on to our App via props.
+
+## Loading data into our state
+
+The method that we need to load sample data can only live where our state lives. That is in our App.js.
+So we hang an event on the button which will be named loadSamples();
+
+```shell
+import React from 'react';
+import Header from './Header';
+import Order from './Order';
+import Inventory from './Inventory';
+
+class App extends React.Component {
+  constructor() {
+    # (run super so the Component initialises otherwise we can't call this.)
+    super();
+    # (Bind the method to the actual component itself)
+    this.addFish = this.addFish.bind(this);
+    this.loadSamples = this.loadSamples.bind(this);
+    # (this is also called getInitialState)
+    this.state = {
+    fishes: {},
+    order: {}
+    };    
+  }
+
+  addFish(fish) {
+    # (Take a copy of the state -> takes every item from our object and spread it into this object)
+    const fishes = {...this.state.fishes};
+    # (Make new key & add in our new fish)
+    const timestamp = Date.now();
+    fishes[`fish-${timestamp}`] = fish;
+    # (Set state)
+    this.setState({ fishes: fishes });
+  }
+
+  loadSamples() {
+    this.setState({
+      fishes: sampleFishes
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <Header tagline="Fresh Seafood Market" />
+        <Order />
+        <Inventory addFish={this.addFish} loadSamples={this.loadSamples} />
+      </div>
+    )
+  }
+}
+
+export default App;
+```
+
+And then in our Inventory component we do the following
+
+```shell
+import React from 'react';
+import AddFishForm from './AddFishForm';
+
+class Inventory extends React.Component {
+  render() {
+    return (
+      <div>
+        <h2>Inventory</h2>
+        <AddFishForm addFish={this.props.addFish}/>
+        <button onClick={this.props.loadSamples}>Load Sample Fishes </button>
+      </div>
+    )
+  }
+}
+
+export default Inventory;
+```
