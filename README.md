@@ -444,3 +444,45 @@ class Inventory extends React.Component {
 
 export default Inventory;
 ```
+
+## Displaying State with JSX
+
+So in order to display our state onto the page we need to create a fish component that we can loop over.
+In our App.js we import our Fish component.
+
+Inside our app we have the following code
+
+```shell
+import Fish from '../components/Fish';
+
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <Header />
+        <ul className="list-of-fishes">
+          {
+            Object
+              .keys(this.state.fishes)
+              .map(key => <Fish />)
+          }
+        </ul>
+      </div>
+    )
+  }
+}
+
+```
+
+
+```shell
+import React from 'react';
+
+class Fish extends React.Component {
+  render() {
+    return (
+
+    )
+  }
+}
+```
