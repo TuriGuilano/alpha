@@ -172,3 +172,5 @@ class StorePicker extends React.Component {
 
 export default StorePicker;
 ```
+
+## Working with react events
