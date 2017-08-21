@@ -1,20 +1,20 @@
-* Learn React course
+*Learn React course
 
-** Topics that will be highlighted
+**Topics that will be highlighted
 
-[x] What are Components
-[x] Different Component types
-[ ] JSX
-[ ] CSS in React
-[ ] Passing dynamic data via Props
-[ ] Stateless functional Components
-[ ] Routing with React router
-[ ] Helper and Utility functions
-[ ] Working with React events
-[ ] All about React router
-[ ] Understanding State
-[ ] Loading data into state onClick
-[ ] Displaying state with JSX
+* What are Components
+* Different Component types
+* JSX
+* CSS in React
+* Passing dynamic data via Props
+* Stateless functional Components
+* Routing with React router
+* Helper and Utility functions
+* Working with React events
+* All about React router
+* Understanding State
+* Loading data into state onClick
+* Displaying state with JSX
 
 ** What are Components?
 
