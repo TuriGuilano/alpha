@@ -1,6 +1,6 @@
-*Learn React course
+#Learn React course
 
-**Topics that will be highlighted
+>Topics that will be highlighted
 
 * What are Components
 * Different Component types
@@ -16,7 +16,7 @@
 * Loading data into state onClick
 * Displaying state with JSX
 
-** What are Components?
+##What are Components?
 
 Components are reusable chunks of code. There are different types of Components.
 1. React.createClass
