@@ -330,7 +330,7 @@ class App extends React.Component {
   constructor() {
     [//]: # (run super so the Component initialises otherwise we can't call this.)
     super();
-    [//]: # (this is also called getInitialState) 
+    # (this is also called getInitialState) 
     this.state = {
     fishes: {},
     order: {}
