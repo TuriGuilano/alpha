@@ -138,6 +138,7 @@ const Root = () => {
       <BrowserRouter>
         <Match exactly pattern="/" component={StoreSelector} />
         <Match pattern="/store/:storeId" component={App} />
+        <Miss component={notFound} />
       </BrowserRouter>
     </div>
   );
