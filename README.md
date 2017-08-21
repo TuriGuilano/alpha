@@ -328,14 +328,29 @@ import Inventory from './Inventory';
 
 class App extends React.Component {
   constructor() {
-    [//]: # (run super so the Component initialises otherwise we can't call this.)
+    # (run super so the Component initialises otherwise we can't call this.)
     super();
-    # (this is also called getInitialState) 
+    # (Bind the method to the actual component itself)
+    this.addFish = this.addFish.bind(this);
+    # (this is also called getInitialState)
     this.state = {
     fishes: {},
     order: {}
-  };    
-}
+    };    
+  }
+  # (How do we get the fish from AddFishForm to our App.js?)
+  # (Make a method addFish, takes 1 argument)
+  # (Update our state)
+  # (Set state)
+  addFish(fish) {
+    # (Take a copy of the state -> takes every item from our object and spread it into this object)
+    const fishes = {...this.state.fishes};
+    # (Make new key & add in our new fish)
+    const timestamp = Date.now();
+    fishes[`fish-${timestamp}`] = fish;
+    # (Set state)
+    this.setState({ fishes: fishes });
+  }
 
   render() {
     return (
@@ -350,3 +365,6 @@ class App extends React.Component {
 
 export default App;
 ```
+
+
+We create a new fish in component 3. We can pass this new fish on to our App via props.
