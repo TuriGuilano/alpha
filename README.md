@@ -24,6 +24,8 @@ React handles that part for us, whenever we want to update a field or a componen
 
 React uses something called HTML5 Push state, this means React will actually change the urlbar but it actually doesn't refresh your browser. This is why React is so fast because the whole site is already loaded.
 
+ES6 classes do not have any commas after them.
+
 ## What are Components?
 
 Components are reusable chunks of code. There are different ways of declaring your Components.
@@ -57,7 +59,7 @@ export class firstComponent extends React.Component {
 }
 ```
 
-3. Stateless functional Components
+3. Stateless functional Components.
    A stateless functional component is just a simple function that returns a react element.
    So whenever you have a component that only does one thing (only need the method render),
    it doenst make sence to use a full react component. E.g a Header
@@ -79,7 +81,7 @@ export class firstComponent extends React.Component {
 
 Props are similar to attributes of HTML tags. So if you want to pass information to a tag, you do it via props.
 
-So this example displays our app component (see example 1). Here we define the prop of our header component, named tagline. After doing so, we can call this tagline inside our Header component(see example 2). We can do so by calling the props of the component.
+This example displays our app component (see example 1). Here we define the prop of our header component, named tagline. After doing so, we can call this tagline inside our Header component(see example 2). We can do so by calling the props of the component.
 
 
 >Example 1.
@@ -103,9 +105,11 @@ export default App;
 
 ``` shell
 
-_If we would console.log(this); it would give us the element,
-inside the element we will find an object called props, here all the props are stored
-of this particular element._
+If we would log *this* it would give us the element.
+Inside the element we will find an object called props, here all the props are stored
+of this particular element. We can call those props via this.props.tagline.
+
+Whenever you run Javascript in JSX remember to run your code inside the { brackets }.
 
 class Header extends React.Component {
   render() {
@@ -124,9 +128,10 @@ export default Header;
 ## Routing with React router
 
 In our index.js we want to handle all the routing. The routing will be done via react-router.
-We will be needing browserrouter, match and miss from the react-router package.
-The way this works is we have Matches, if the Match is exactly pattern="/" we render a specific component.
-So based on the url, we can render out components with the exactly pattern. You can use this throughout your application, multiple levels deep.
+We will be importing a couple of modules from the react-router package, { BrowserRouter, Match, Miss }.
+
+The way this works is we have Matches, if the url matches our pattern we render a specific component.
+You can use this throughout your application, multiple levels deep.
 
 ```shell
 import React from 'react';
@@ -156,7 +161,7 @@ render(<Root/>, document.querySelector('#main'));
 
 >Named exports
 
-When we have functions that are not big enough to be a module but just small helper functions we can create a helpers.js file. Here we can export each function that we create. By using these functions we can simply import the function name. E.g we want to display a randon default name in the input field, so we import a function that creates a random name.
+When we have functions that are not big enough to be a module we can create a helpers.js file. Here we can create, store and export each function that we create. To call a function from the helpers.js file we simply import the function in our component.
 
 ```shell
 import React from 'react';
@@ -185,13 +190,15 @@ Events in React are exactly the same as events in regular Javascript. The only d
 
 Notice that events are done inline. Also notice that render methods are bound to the actual class that you are in. So when you use this* its bound to the class that you are in.
 
-The following example gets us the value that is being typed in and change the url.
-In order to get the value from a actual input we use the ref={(input) => {this.storeInput = input }} attribute.
+In the following example we use refs to get the input from a form field.
 
-After we also need to bind the ref because it doens't implicitly binds all of the methods to the actual component it self. We can do that by the cunstructor method and running super inside it. This makes sure it first runs the React component and allows us to sprinkle our extra stuff. And then super allows us to bind our own methods to the StorePicker component. NOTE** Its also possible that you bind the method inline, this is a bit more clearer.
+After we received the input we also need to bind the input because it does not implicitly binds all of the methods to the actual component it self.
 
-Note* es6 classes do not have any commas after them.
+There are multiple ways to achieve this, via the constructor method, and via inline binding.
+If you use the constructor method you alway run super() before you bind your ref. Super makes sure
+the React class component is first initialized and then bids the ref.
 
+In the example below we also set the default URL to a random value via a function that we call from our helpers.js file.
 
 ```shell
 import React from 'react';
@@ -229,15 +236,10 @@ export default StorePicker;
 With react-router 4 there are two main ways to actually change the page.
 
 1. You can render out a redirect Component.
+2. If you want your page changes to be handled by a function you can use an imperative API .transitionTo
 
-2. If you want a function that you can run to change the page you can use an imperative API.
-.transitionTo
-
-The way that we access our router is via context. When our BrowserRouter of the react-router library is our top level parent we can access this throughout our application. You can do so via the following setup.
-Note* You can inspect your component with the react devtools and see the props and context of the component
-The context object has a method called transitionTo. which allows us to call this method inside our goToStore method.
-
-So we need to serve the router from the parent with a thing called contextTypes.
+The way that we access our router is via context object.
+We have to make sure our BrowserRouter of the react-router library is our top level parent so we can access this throughout our application. This can be done by the following setup:
 
 ```shell
 class StorePicker = React.Component {
@@ -273,14 +275,14 @@ export default StorePicker;
 State is a representation of all of our data in our Application. Each component can have its own state. You
 can see state as one big object that holds all of our data related to a piece or all of our application.
 
-In React, we edit the data and React will change the HTML for us. So again, we never actually touch the DOM because React does all of this for us.
+In React, we only edit the state. React will change the HTML for us. So again, we never actually touch the DOM because React does all of this for us.
 
-So let's say we have an Inventory which displays all of our products, for this example let's say Fish. And every time we add a new fish we want it to be placed into our state. Our state being a list of all of our fishes. We create a fish component as displayed below:
+So let's say we have an Inventory which displays all of our products, for this example let's say Fish. And every time we add a new fish we want it to be placed into our state. Our state being a list of all of our fishes. We create a fish component.
 
-In our root, in this example our App component we need to handle the state, this can also be done in Redux but since we dont use that in this example we will handle our state in our App.js
+In our root, in this example our App component, we need to handle the state, this can also be done in Redux but since we dont use Redux for this example we will handle our state in our App.js
 
-In order to change update state our App should know what states we have.
-We do so by initializing the state in our App.js (see example 2.)
+In order to change, update state our App should know what states we have.
+We can let our App now by initializing our state
 
 ```shell
 import React from 'react';
@@ -366,13 +368,10 @@ class App extends React.Component {
 export default App;
 ```
 
-
-We create a new fish in component 3. We can pass this new fish on to our App via props.
-
 ## Loading data into our state
 
 The method that we need to load sample data can only live where our state lives. That is in our App.js.
-So we hang an event on the button which will be named loadSamples();
+So we bind an event on the button which will be named loadSamples() and configure our App.js with this function as well.
 
 ```shell
 import React from 'react';
@@ -447,10 +446,8 @@ export default Inventory;
 
 ## Displaying State with JSX
 
-So in order to display our state onto the page we need to create a fish component that we can loop over.
-In our App.js we import our Fish component.
-
-Inside our app we have the following code
+In order to display our state onto the page we need to create a fish component that we can loop over.
+In our App.js we import our Fish component. Inside our app we have the following code
 
 ```shell
 import Fish from '../components/Fish';
