@@ -464,7 +464,10 @@ class App extends React.Component {
           {
             Object
               .keys(this.state.fishes)
-              .map(key => <Fish />)
+              # (here we iterate over the array that we got due to our Object.keys(this.state.fishes))
+              # (It returns an Array with keys, so we can so for each key we make render a <Fish /> Component with)
+              # (an unique key, and as details we pass it all the data of this specific fish, key*)
+              .map(key => <Fish key={key} details={this.state.fishes[key]} />)
           }
         </ul>
       </div>
@@ -480,9 +483,18 @@ import React from 'react';
 
 class Fish extends React.Component {
   render() {
+    const { details } = this.props
     return (
-
+      <li className="menu-fish">
+        <img src={details.image} alt={details.name} />
+        <h3>
+          {details.name}
+        </h3>
+        <button>Add To Order</button>
+      </li>
     )
   }
 }
+
+export default Fish;
 ```
