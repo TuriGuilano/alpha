@@ -269,3 +269,7 @@ Storepicker.contextTypes = {
 export default StorePicker;
 
 ```
+
+## State
+
+State is a representation of all of our data in our Application. Each component can have its own state. You can see state as one big object that holds all of our data related to a piece or all of our application.
