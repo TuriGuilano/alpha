@@ -131,6 +131,7 @@ import './css/style.css';
 import App from './components/App';
 
 import StoreSelector from './components/StoreSelector';
+import NotFound from './components/NotFound';
 
 const Root = () => {
   return (
@@ -141,7 +142,7 @@ const Root = () => {
         <Miss component={notFound} />
       </BrowserRouter>
     </div>
-  );
+  )
 }
 
 render(<Root/>, document.querySelector('#main'));
