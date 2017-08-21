@@ -17,6 +17,13 @@
 * Displaying state with JSX
 * Lifecycle hooks
 
+## General info about React & Do's and Dont's
+
+Try to stay away from actually touching the DOM as much as possible.
+React handles that part.
+
+
+
 ## What are Components?
 
 Components are reusable chunks of code. There are different types of Components.
@@ -174,11 +181,16 @@ export default StorePicker;
 ```
 
 ## Working with react events
+
 Events in React are exactly the same as events in regular Javascript. The only difference with React events is that they wrap them in this cross-browser wrapper called SyntheticEvent. This does some stuff under the hood, makes sure it works cross-browser for you.
 
 Notice that events are done inline. Also notice that render methods are bound to the actual class that you are in. So when you use this* its bound to the class that you are in.
 
 The following example gets us the value that is being typed in and change the url.
+In order to get the value from a actual input we use the ref={(input) => {this.storeInput = input }} attribute.
+
+After we also need to bind the ref because it doens't implicitly binds all of the methods to the actual component it self. We can do that by the cunstructor method and running super inside it. This makes sure it first runs the React component and allows us to sprinkle our extra stuff. And then super allows us to bind our own methods to the StorePicker component.
+
 Note* es6 classes do not have any commas after them.
 
 
@@ -187,6 +199,11 @@ import React from 'react';
 import { getNames } from '../helpers';
 
 class StorePicker extends React.Component {
+  constructor() {
+    super();
+    this.goToStore = this.goToStore.bind(this);
+  }
+
   goToStore(event) {
     event.prefentDefault();
 
@@ -197,7 +214,7 @@ class StorePicker extends React.Component {
       <form onSubmit={this.goToStore}>
         <div>
           <h2>Please enter your name</h2>
-          <input type="text" required placeholder="Your name" defaultValue={getNames()} />
+          <input type="text" required placeholder="Your name" defaultValue={getNames()} ref={(input) => {this.storeInput = input}} />
           <button type="submit">Check profile</button>
         </div>
       </form>
