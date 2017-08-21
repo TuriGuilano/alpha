@@ -17,18 +17,16 @@
 * Displaying state with JSX
 * Lifecycle hooks
 
-## General info about React & Do's and Dont's
+## Do's and Dont's
 
 Try to stay away from actually touching the DOM as much as possible.
-React handles that part.
+React handles that part for us, whenever we want to update a field or a component we update the state.
 
-React uses something called HTML5 Push state, this means React will actually change the urlbar but it actually doesn't refresh your browser.
-
+React uses something called HTML5 Push state, this means React will actually change the urlbar but it actually doesn't refresh your browser. This is why React is so fast because the whole site is already loaded.
 
 ## What are Components?
 
-Components are reusable chunks of code. There are different types of Components.
-
+Components are reusable chunks of code. There are different ways of declaring your Components.
 
 1. React.createClass
 This is the oldest way of creating components. Not recommended!
@@ -45,7 +43,7 @@ const firstComponent = React.createClass({
 });
 ```
 
-2. Class Components
+2. ES6 Class Components
 
 ```shell
 export class firstComponent extends React.Component {
@@ -272,4 +270,31 @@ export default StorePicker;
 
 ## State
 
-State is a representation of all of our data in our Application. Each component can have its own state. You can see state as one big object that holds all of our data related to a piece or all of our application.
+State is a representation of all of our data in our Application. Each component can have its own state. You
+can see state as one big object that holds all of our data related to a piece or all of our application.
+
+In React, we edit the data and React will change the HTML for us. So again, we never actually touch the DOM because React does all of this for us.
+
+So let's say we have an Inventory which displays all of our products, for this example let's say Fish. And every time we add a new fish we want it to be placed into our state. Our state being a list of all of our fishes. We create a fish component as displayed below:
+
+```shell
+import React from 'react';
+
+class AddFishForm extends React.Component {
+  createFish(event) {
+
+  }
+
+  render() {
+    return (
+      <form>
+        <input type="text" placeholder="Fish name" />
+        <input type="text" placeholder="Fish price" />
+        <select>
+          <option value="available">Fresh</option>
+        </select>
+      </form>
+    )
+  }
+}
+```  
