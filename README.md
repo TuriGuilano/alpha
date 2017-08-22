@@ -330,7 +330,7 @@ import Inventory from './Inventory';
 
 class App extends React.Component {
   constructor() {
-    # (run super so the Component initialises otherwise we can't call this.)
+    # (run super so the Component initialises otherwise we cant call this.)
     super();
     # (Bind the method to the actual component itself)
     this.addFish = this.addFish.bind(this);
@@ -381,7 +381,7 @@ import Inventory from './Inventory';
 
 class App extends React.Component {
   constructor() {
-    # (run super so the Component initialises otherwise we can't call this.)
+    # (run super so the Component initialises otherwise we cant call this.)
     super();
     # (Bind the method to the actual component itself)
     this.addFish = this.addFish.bind(this);
