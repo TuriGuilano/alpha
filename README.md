@@ -195,7 +195,7 @@ In the following example we use refs to get the input from a form field.
 After we received the input we also need to bind the input because it does not implicitly binds all of the methods to the actual component it self.
 
 There are multiple ways to achieve this, via the constructor method, and via inline binding.
-If you use the constructor method you alway run super() before you bind your ref. Super makes sure
+If you use the constructor method you must run super(); before you bind your ref. Super makes sure
 the React class component is first initialized and then bids the ref.
 
 In the example below we also set the default URL to a random value via a function that we call from our helpers.js file.
@@ -510,6 +510,26 @@ import React from 'react';
 import { formatPrice } from '../helpers';
 
 class Order extends React.Component {
+  constructor() {
+    super();
+    this.renderOrder = this.renderOrder.bind(this);
+  }
+  renderOrder(key) {
+    const fish = this.props.fishes[key];
+    const count = this.props.order[key];
+
+    if(!fish || fish.status === 'unavailable') {
+      return <li key={key}>Sorry, {fish ? fish.name : 'fish'} is no longer available!</li>
+    }
+
+    return (
+      <li key={key}>
+        <span>{count}lbs {fish.name}</span>
+        <span>{formatPrice(count * fish.price)}</span>
+      </li>
+    )
+  }
+
   render() {
     const orderIds = Object.keys(this.props.order);
     const total = orderIds.reduce((prevTotal, key) => {
@@ -525,6 +545,7 @@ class Order extends React.Component {
       <div>
         <h2>Your Order</h2>
         <ul>
+          {orderIds.map(this.renderOrder)}
           <li>
             <strong>Total:</strong>
             {formatPrice(total)}
@@ -535,3 +556,29 @@ class Order extends React.Component {
   }
 }
 ```
+
+## Persisting our state with firebase
+
+## React lifecycle hooks
+
+In React each component has several "lifecycle methods" that you can override to run code at particular times in the process. Methods prefixed with will are called right before something happens, and methods prefixed with did are called right after something happens.
+
+>Mounting
+* constructor();
+* componentWillMount();
+* render();
+* componentDidMount();
+
+>Updating
+* componentWillReceiveProps();
+* shouldComponentUpdate();
+* componentWillUpdate();
+* render();
+* componentDidUpdate();
+
+>Unmounting
+* componentWillUnmount();
+
+>Other API's
+* setState();
+* forceUpdate();
