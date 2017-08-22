@@ -582,3 +582,16 @@ In React each component has several "lifecycle methods" that you can override to
 >Other API's
 * setState();
 * forceUpdate();
+
+## Component validation via PropTypes
+>Rule of thumb
+Anytime you pass a prop into  a component and you use it, take a second and declare the proptypes.
+This way other developers will know which type the prop is that's being used.
+
+```js
+ Header.PropTypes = {
+   tagline: React.PropTypes.string.isRequired
+ }
+```
+
+## Authentication
