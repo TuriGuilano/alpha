@@ -495,3 +495,43 @@ class Fish extends React.Component {
 
 export default Fish;
 ```
+
+The same goes for our order. When a customer wants to buy different fishes, the customer must be able to add the fishes to the order. In our App.js we pass the fishes and the order state via props.
+
+```js
+<Order fishes={this.state.fishes} order={this.state.order} />
+```
+Now we have an object thats passed into our Order components which contains the state of the fishes and the state of the order. Now we are able to iterate over the object.
+
+Our order component will look like this
+
+```js
+import React from 'react';
+import { formatPrice } from '../helpers';
+
+class Order extends React.Component {
+  render() {
+    const orderIds = Object.keys(this.props.order);
+    const total = orderIds.reduce((prevTotal, key) => {
+      const fish = this.props.fishes[key];
+      const count = this.props.order[key];
+      const isAvailable = fish && fish.status === 'available';
+      if(isAvailable) {
+        return prevTotal + (count * fish.price || 0)
+      }
+      return prevTotal;
+    }, 0);
+    return (
+      <div>
+        <h2>Your Order</h2>
+        <ul>
+          <li>
+            <strong>Total:</strong>
+            {formatPrice(total)}
+          </li>
+        </ul>
+      </div>
+    )
+  }
+}
+```
