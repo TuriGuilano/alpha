@@ -33,7 +33,7 @@ Components are reusable chunks of code. There are different ways of declaring yo
 1. React.createClass
 This is the oldest way of creating components. Not recommended!
 
-```shell
+```js
 const firstComponent = React.createClass({
   render() {
     return (
@@ -47,7 +47,7 @@ const firstComponent = React.createClass({
 
 2. ES6 Class Components
 
-```shell
+```js
 export class firstComponent extends React.Component {
   render() {
     return (
@@ -64,7 +64,7 @@ export class firstComponent extends React.Component {
    So whenever you have a component that only does one thing (only need the method render),
    it doenst make sence to use a full react component. E.g a Header
 
-```shell
+```js
   const MyHeaderComponent = (props) => {
     return (
       <header>
@@ -86,7 +86,7 @@ This example displays our app component (see example 1). Here we define the prop
 
 >Example 1.
 
-```shell
+```js
 class App extends React.Component {
   render() {
     return (
@@ -103,7 +103,7 @@ export default App;
 
 >Example 2.
 
-``` shell
+``` js
 
 If we would log *this* it would give us the element.
 Inside the element we will find an object called props, here all the props are stored
@@ -133,7 +133,7 @@ We will be importing a couple of modules from the react-router package, { Browse
 The way this works is we have Matches, if the url matches our pattern we render a specific component.
 You can use this throughout your application, multiple levels deep.
 
-```shell
+```js
 import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter, Match, Miss } from 'react-router';
@@ -163,7 +163,7 @@ render(<Root/>, document.querySelector('#main'));
 
 When we have functions that are not big enough to be a module we can create a helpers.js file. Here we can create, store and export each function that we create. To call a function from the helpers.js file we simply import the function in our component.
 
-```shell
+```js
 import React from 'react';
 import { getNames } from '../helpers';
 
@@ -200,7 +200,7 @@ the React class component is first initialized and then bids the ref.
 
 In the example below we also set the default URL to a random value via a function that we call from our helpers.js file.
 
-```shell
+```js
 import React from 'react';
 import { getNames } from '../helpers';
 
@@ -241,7 +241,7 @@ With react-router 4 there are two main ways to actually change the page.
 The way that we access our router is via context object.
 We have to make sure our BrowserRouter of the react-router library is our top level parent so we can access this throughout our application. This can be done by the following setup:
 
-```shell
+```js
 class StorePicker = React.Component {
   goToStore(event) {
     event.preventDefault();
@@ -284,7 +284,7 @@ In our root, in this example our App component, we need to handle the state, thi
 In order to change, update state our App should know what states we have.
 We can let our App now by initializing our state
 
-```shell
+```js
 import React from 'react';
 
 class AddFishForm extends React.Component {
@@ -322,7 +322,7 @@ export default AddFishForm;
 
 >Example 2
 
-```shell
+```js
 import React from 'react';
 import Header from './Header';
 import Order from './Order';
@@ -373,7 +373,7 @@ export default App;
 The method that we need to load sample data can only live where our state lives. That is in our App.js.
 So we bind an event on the button which will be named loadSamples() and configure our App.js with this function as well.
 
-```shell
+```js
 import React from 'react';
 import Header from './Header';
 import Order from './Order';
@@ -425,7 +425,7 @@ export default App;
 
 And then in our Inventory component we do the following
 
-```shell
+```js
 import React from 'react';
 import AddFishForm from './AddFishForm';
 
@@ -449,7 +449,7 @@ export default Inventory;
 In order to display our state onto the page we need to create a fish component that we can loop over.
 In our App.js we import our Fish component. Inside our app we have the following code
 
-```shell
+```js
 import Fish from '../components/Fish';
 
 class App extends React.Component {
@@ -475,7 +475,7 @@ class App extends React.Component {
 ```
 
 
-```shell
+```js
 import React from 'react';
 
 class Fish extends React.Component {
