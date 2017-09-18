@@ -26,6 +26,9 @@ React uses something called HTML5 Push state, this means React will actually cha
 
 ES6 classes do not have any commas after them.
 
+When writing comments with JSX remember before the return you can use regular comments like //
+inside the return you use it like { /* comment* / }
+
 ## What are Components?
 
 Components are reusable chunks of code. There are different ways of declaring your Components.
@@ -48,7 +51,7 @@ const firstComponent = React.createClass({
 2. ES6 Class Components
 
 ```js
-export class firstComponent extends React.Component {
+export class FirstComponent extends React.Component {
   render() {
     return (
       <div>
@@ -124,6 +127,90 @@ class Header extends React.Component {
 
 export default Header;
 ```
+
+##State
+
+In React state is an object that represents the parts of the app that can change.
+Each Component can maintain its own state, which lives in an object called ```this.state```.
+
+A representation of an state object:
+
+{
+  currentTime: "2017-09-18T22:30:12.4387",
+  power: {
+    min: 0,
+    current: 100,
+    max: 150
+  },
+  engineTemperature: {
+    min: 0.0,
+    current: 89.0,
+    max: 120.0
+  }
+  fuelLevel: {
+    min: 0,
+    current: 48,
+    max: 100
+  }
+}
+
+Simply, if you want your app to do anything, if you want interactivity adding and deleting things, logging
+in and out - that will involve state.
+
+###How to change state
+You can change the state by simply calling ``` this.setState ``` from inside an Component.
+React will only update (re-render) when you tell it to.
+
+###Simple stateChanger flow explained
+
+STATE = {count: 0}
+Button presses: 0;
+EVENT occurs -> click handler function is called ``` handleClick() {this.setState({count: this.setState + 1})}; ```
+setState is called, state has changed! STATE = {count: 1}
+React rerenders Component: Visual display: Button presses 1
+
+Key points
+. React maintains state as an object
+. You can change that object by calling ```setState```
+. React will re-render every time you call ```setState```
+
+DONT'S!!
+. You should not change ```this.state``` directly ever. Use ```this.setState```
+. State changes are async. If you read from this.state immedediately after calling ```this.setState```
+  it probably won't reflect the changes yet.
+
+example ```
+  class App extends React.Component {
+    constructor(props) {
+      super(props);
+
+      //initialize state
+      this.state = {count: 0};
+    }
+
+    handleClick() {
+      this.setState({
+        count: this.state.count + 1
+      }, function() {
+         //setstate is asyc, this function gets called when its finished
+         console.log('job done');
+         });
+    }
+    render() {
+      return(
+        <div>
+          Button presses: {this.state.count}
+          <button onClick={this.handleClick.bind(this)}>
+            Add one
+          </button>
+        </div>
+      );
+    }
+  }
+
+  ReactDOM.render(<App/>, document.getElementById('container'));
+```
+
 
 ## Routing with React router
 
@@ -334,7 +421,7 @@ class App extends React.Component {
     super();
     # (Bind the method to the actual component itself)
     this.addFish = this.addFish.bind(this);
-    # (this is also called getInitialState)
+    # (this is also called getInitialState) -> getInitialState is used for ES5 and constructor for ES6 class components
     this.state = {
     fishes: {},
     order: {}
@@ -595,3 +682,17 @@ This way other developers will know which type the prop is that's being used.
 ```
 
 ## Authentication
+
+Client side Authentication is easily done via firebase.  
+
+declarative = What
+e.g: Object.keys.map(key => <Fish key={key} details={this.state.fishes[key]})
+
+imperative = How
+  1. take input
+  2. loop over elems
+  3. return array
+
+
+## Redux
+We keep all of our data (state) in a store.
