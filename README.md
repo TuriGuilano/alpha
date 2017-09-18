@@ -134,7 +134,7 @@ In React state is an object that represents the parts of the app that can change
 Each Component can maintain its own state, which lives in an object called ```this.state```.
 
 A representation of an state object:
-
+```
 {
   currentTime: "2017-09-18T22:30:12.4387",
   power: {
@@ -153,7 +153,7 @@ A representation of an state object:
     max: 100
   }
 }
-
+```
 Simply, if you want your app to do anything, if you want interactivity adding and deleting things, logging
 in and out - that will involve state.
 
@@ -179,7 +179,8 @@ DONT'S!!
 . State changes are async. If you read from this.state immedediately after calling ```this.setState```
   it probably won't reflect the changes yet.
 
-example ```
+example
+```
   class App extends React.Component {
     constructor(props) {
       super(props);
