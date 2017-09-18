@@ -128,7 +128,7 @@ class Header extends React.Component {
 export default Header;
 ```
 
-##State
+## State
 
 In React state is an object that represents the parts of the app that can change.
 Each Component can maintain its own state, which lives in an object called ```this.state```.
