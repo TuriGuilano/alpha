@@ -134,7 +134,7 @@ In React state is an object that represents the parts of the app that can change
 Each Component can maintain its own state, which lives in an object called ```this.state```.
 
 A representation of an state object:
-```
+```js
 {
   currentTime: "2017-09-18T22:30:12.4387",
   power: {
@@ -180,7 +180,7 @@ DONT'S!!
   it probably won't reflect the changes yet.
 
 example
-```
+```js
   class App extends React.Component {
     constructor(props) {
       super(props);
